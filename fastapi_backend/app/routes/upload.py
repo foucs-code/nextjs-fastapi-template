@@ -18,7 +18,7 @@ ALLOWED_CONTENT_TYPES = {
     "application/octet-stream",
 }
 
-
+# ruff: noqa: B008
 @router.post("/upload-words", response_model=UploadWordsResponse)
 async def upload_words(
     file: UploadFile = File(...),
