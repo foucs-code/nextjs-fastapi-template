@@ -27,7 +27,6 @@ async def upload_words(
     """上传 CSV 单词表: 校验,解析,去重,返回统计结果."""
     filename = file.filename or "upload.csv"
     print("success: " + filename)
-    print("success: " + filename)
     if not filename.lower().endswith(".csv"):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
