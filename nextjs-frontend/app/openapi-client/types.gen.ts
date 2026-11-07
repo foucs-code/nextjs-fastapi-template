@@ -59,6 +59,16 @@ export type BodyAuthVerifyVerify = {
 };
 
 /**
+ * Body_upload-upload_words
+ */
+export type BodyUploadUploadWords = {
+  /**
+   * File
+   */
+  file: Blob | File;
+};
+
+/**
  * ErrorModel
  */
 export type ErrorModel = {
@@ -150,6 +160,32 @@ export type PageItemRead = {
    * Pages
    */
   pages?: number | null;
+};
+
+/**
+ * UploadWordsResponse
+ */
+export type UploadWordsResponse = {
+  /**
+   * Filename
+   */
+  filename: string;
+  /**
+   * Total Rows
+   */
+  total_rows: number;
+  /**
+   * Valid Words
+   */
+  valid_words: number;
+  /**
+   * Skipped
+   */
+  skipped: number;
+  /**
+   * Preview
+   */
+  preview: Array<string>;
 };
 
 /**
@@ -747,6 +783,32 @@ export type DeleteItemResponses = {
    */
   200: unknown;
 };
+
+export type UploadWordsData = {
+  body: BodyUploadUploadWords;
+  path?: never;
+  query?: never;
+  url: "/upload/upload-words";
+};
+
+export type UploadWordsErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UploadWordsError = UploadWordsErrors[keyof UploadWordsErrors];
+
+export type UploadWordsResponses = {
+  /**
+   * Successful Response
+   */
+  200: UploadWordsResponse;
+};
+
+export type UploadWordsResponse2 =
+  UploadWordsResponses[keyof UploadWordsResponses];
 
 export type ClientOptions = {
   baseURL: `${string}://openapi.json` | (string & {});

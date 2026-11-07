@@ -5,6 +5,7 @@ import {
   type Client,
   type TDataShape,
   urlSearchParamsBodySerializer,
+  formDataBodySerializer,
 } from "./client";
 import type {
   AuthJwtLoginData,
@@ -52,6 +53,9 @@ import type {
   DeleteItemData,
   DeleteItemResponses,
   DeleteItemErrors,
+  UploadWordsData,
+  UploadWordsResponses,
+  UploadWordsErrors,
 } from "./types.gen";
 import { client } from "./client.gen";
 
@@ -414,5 +418,34 @@ export const deleteItem = <ThrowOnError extends boolean = false>(
     ],
     url: "/items/{item_id}",
     ...options,
+  });
+};
+
+/**
+ * Upload Words
+ * 上传 CSV 单词表: 校验,解析,去重,返回统计结果.
+ */
+export const uploadWords = <ThrowOnError extends boolean = false>(
+  options: Options<UploadWordsData, ThrowOnError>,
+) => {
+  return (options.client ?? client).post<
+    UploadWordsResponses,
+    UploadWordsErrors,
+    ThrowOnError
+  >({
+    ...formDataBodySerializer,
+    responseType: "json",
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/upload/upload-words",
+    ...options,
+    headers: {
+      "Content-Type": null,
+      ...options.headers,
+    },
   });
 };

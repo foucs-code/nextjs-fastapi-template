@@ -32,3 +32,13 @@ class ItemRead(ItemBase):
     user_id: UUID
 
     model_config = {"from_attributes": True}
+
+
+class UploadWordsResponse(BaseModel):
+    filename: str
+    total_rows: int
+    valid_words: int
+    skipped: int
+    preview: list[str]
+
+

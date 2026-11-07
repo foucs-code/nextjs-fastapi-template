@@ -829,6 +829,53 @@
           }
         }
       }
+    },
+    "/upload/upload-words": {
+      "post": {
+        "tags": [
+          "upload"
+        ],
+        "summary": "Upload Words",
+        "description": "\u4e0a\u4f20 CSV \u5355\u8bcd\u8868: \u6821\u9a8c,\u89e3\u6790,\u53bb\u91cd,\u8fd4\u56de\u7edf\u8ba1\u7ed3\u679c.",
+        "operationId": "upload_words",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload-upload_words"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadWordsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -909,6 +956,20 @@
           "token"
         ],
         "title": "Body_auth-verify:verify"
+      },
+      "Body_upload-upload_words": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload-upload_words"
       },
       "ErrorModel": {
         "properties": {
@@ -1093,6 +1154,42 @@
           "size"
         ],
         "title": "Page[ItemRead]"
+      },
+      "UploadWordsResponse": {
+        "properties": {
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          },
+          "total_rows": {
+            "type": "integer",
+            "title": "Total Rows"
+          },
+          "valid_words": {
+            "type": "integer",
+            "title": "Valid Words"
+          },
+          "skipped": {
+            "type": "integer",
+            "title": "Skipped"
+          },
+          "preview": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Preview"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filename",
+          "total_rows",
+          "valid_words",
+          "skipped",
+          "preview"
+        ],
+        "title": "UploadWordsResponse"
       },
       "UserCreate": {
         "properties": {

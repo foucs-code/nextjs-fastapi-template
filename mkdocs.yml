@@ -53,7 +53,11 @@ markdown_extensions:
   - pymdownx.highlight:
       use_pygments: true
   - pymdownx.inlinehilite
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.snippets:
       check_paths: true
   - toc:
@@ -68,6 +72,7 @@ nav:
   - Get Started: get-started.md
   - Additional Settings: additional-settings.md
   - Technology Selection: technology-selection.md
+  - Architecture Overview: architecture-overview.md
   - Deployment: deployment.md
   - Changelog: CHANGELOG.md
   - Contributing: contributing.md

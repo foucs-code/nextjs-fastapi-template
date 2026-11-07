@@ -4,7 +4,7 @@ import { usersCurrentUser } from "@/app/clientService";
 
 export async function proxy(request: NextRequest) {
   const token = request.cookies.get("accessToken");
-
+  console.log("called proxy:" + token)
   if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }

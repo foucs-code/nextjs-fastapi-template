@@ -23,3 +23,11 @@
 
 
 {% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script type="module">
+    import mermaid from "https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "default" });
+  </script>
+{% endblock %}
