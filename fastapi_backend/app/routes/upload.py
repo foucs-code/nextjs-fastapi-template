@@ -1,7 +1,7 @@
 import csv
 import io
 
-from fastapi import APIRouter,Depends,File,HTTPException,UploadFile,status
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 
 from app.models import User
 from app.schemas import UploadWordsResponse
@@ -50,6 +50,7 @@ async def upload_words(
 
     try:
         text = raw.decode("utf-8-sig")
+        print("word: " + text)
     except UnicodeDecodeError as exc:
         raise HTTPException(
             status_code=400,
@@ -70,7 +71,7 @@ async def upload_words(
 
             word = row[0].strip()
 
-            # 第一行是表头时跳过：word,meaning,...
+              # 第一行是表头时跳过：word,meaning,...
             if word.lower() == "word":
                 ignored_rows += 1
                 continue
