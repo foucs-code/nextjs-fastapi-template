@@ -18,10 +18,11 @@ ALLOWED_CONTENT_TYPES = {
     "application/octet-stream",
 }
 
-@router.post("/upload-words",response_model=UploadWordsResponse)
+
+@router.post("/upload-words", response_model=UploadWordsResponse)
 async def upload_words(
-       file: UploadFile = File(...),
-       user: User = Depends(current_active_user),
+    file: UploadFile = File(...),
+    user: User = Depends(current_active_user),
 ) -> UploadWordsResponse:
     """上传 CSV 单词表: 校验,解析,去重,返回统计结果."""
     filename = file.filename or "upload.csv"
@@ -39,14 +40,14 @@ async def upload_words(
             detail=f"不支持的文件类型:{file.content_type}",
         )
 
-    raw = await file.read(MAX_FILE_SIZE +1)
+    raw = await file.read(MAX_FILE_SIZE + 1)
     await file.close()
 
     if not raw:
-        raise HTTPException(status_code=400,detail="文件为空")
+        raise HTTPException(status_code=400, detail="文件为空")
 
     if len(raw) > MAX_FILE_SIZE:
-        raise HTTPException(status_code=413,detail="文件不能超过 5 MB")
+        raise HTTPException(status_code=413, detail="文件不能超过 5 MB")
 
     try:
         text = raw.decode("utf-8-sig")
@@ -55,7 +56,7 @@ async def upload_words(
         raise HTTPException(
             status_code=400,
             detail="文件必须是 UTF-8 编码",
-        ) from exc   
+        ) from exc
 
     total_rows = 0
     ignored_rows = 0
@@ -71,7 +72,7 @@ async def upload_words(
 
             word = row[0].strip()
 
-              # 第一行是表头时跳过：word,meaning,...
+            # 第一行是表头时跳过：word,meaning,...
             if word.lower() == "word":
                 ignored_rows += 1
                 continue

@@ -52,5 +52,5 @@ app.include_router(
 # Include items routes
 app.include_router(items_router, prefix="/items")
 
-app.include_router(upload_router,prefix="/upload")
+app.include_router(upload_router, prefix="/upload")
 add_pagination(app)

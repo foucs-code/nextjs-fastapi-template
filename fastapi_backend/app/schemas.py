@@ -40,5 +40,3 @@ class UploadWordsResponse(BaseModel):
     valid_words: int
     skipped: int
     preview: list[str]
-
-
